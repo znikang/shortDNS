@@ -1,0 +1,186 @@
+{extend name="common:base" /}
+{block name="css_file"}
+<link rel="stylesheet" href="__ADMIN__/css/toastr.min.css" />
+{/block}
+{block name="content"}
+
+<div class="col-xs-12">
+    <!-- PAGE CONTENT BEGINS -->
+    <div class="row">
+        <div class="widget-body">
+            <form action="" class="" method="get" id="search" name="search" onsubmit="return ajaxsubmit(this,function(data) {
+            $('#content').html(data);
+            })">
+                
+                <section>
+                    <a class="btn btn-info" href="{:url('index',['act'=>'add'])}" value="">新增短域名</a>
+                    &nbsp; &nbsp; &nbsp; &nbsp; 
+                    <a class="btn btn-warning" href="{:url('index',['act'=>'rep'])}" value="">批量换长链接</a>
+                    &nbsp; &nbsp; &nbsp; &nbsp; 
+                    <label>
+                        使用状态：
+                    </label>
+                    <label class="select" style="width: 10%">
+                        <select class="input-sm" name="usd_status">
+                            <option value="" >
+                                全部
+                            </option>
+                            <option value="1" {if $usd_status == 1}selected="selected"{/if}>
+                                已使用
+                            </option>
+                            <option value="2" {if $usd_status == 2}selected="selected"{/if}>
+                                未使用
+                            </option>
+                        </select>
+                        <i>
+                        </i>
+                    </label>
+
+                    <label class="select" style="width: 10%">
+                        <select class="input-sm" name="status">
+                            <option value="" >
+                                被封状态
+                            </option>
+                            <option value="1" {if $status == 1}selected="selected"{/if}>
+                                正常
+                            </option>
+                            <option value="2" {if $status == 2}selected="selected"{/if}>
+                                被封杀
+                            </option>
+                        </select>
+                        <i>
+                        </i>
+                    </label>
+
+             
+
+                    <label>
+                        <!-- 备注： -->
+                    </label>
+                    <input type="text" name="remarks" value="" placeholder="备注或域名搜索" id="search-fld"
+                    style="background:none;border:none;color:black;border-width:1px;border-color:#bfbfbf;border-style:solid;">
+                    <!--<button type="submit">-->
+                    <!--<i class="fa fa-search"></i>-->
+                    <!--</button>-->
+                    <button type="submit" class="btn btn-primary">
+                        搜索
+                    </button>
+
+                </section>
+                <br>
+                <legend>
+                </legend>
+                <input type="hidden" name="page" id="page" value="0">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div class="space-4"></div>
+<div class="row">
+    <form id="form" method="post" action="{:url('index',['act'=>'del'])}">
+        <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="center col-xs-1"><input class="check-all" type="checkbox" value=""></th>
+                <th class="center col-xs-1">ID</th>
+                <th class="center col-xs-1">备注</th>
+                <th class="center col-xs-2">短域名</th>
+                <th class="center col-xs-1">防红模式</th>
+                <th class="center col-xs-3 hidden-sm hidden-xs">长链接</th>
+                <th class="center col-xs-2 hidden-sm hidden-xs">添加时间</th>
+                <th class="center col-xs-1">状态</th>
+                <!-- <th class="center col-xs-2 hidden-sm hidden-xs">被封时间</th> -->
+                <th class="center col-xs-1">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="val"}
+            <tr {if $val['status'] == 2}style="color:red"{/if}>
+                <td class="center">
+                    <input class="ids" type="checkbox" name="ids[]" value="{$val['id']}">
+                </td>
+                <td>{$val.id}</td>
+                <td>{$val.remarks}</td>
+                <td>{:urldecode($val['domain'])} 
+                    <a href="javascript:;" class="copy" data-clipboard-action="copy" data-clipboard-target="#cp{$val.id}"><i class="ace-icon fa fa-files-o"></i></a>
+                    <span id="cp{$val.id}" style="opacity: 0">{:urldecode($val['domain'])}</span>
+                </td>
+                <td class="center">{if condition="$val.type eq 1"}引导<!-- <span data-rel="tooltip" title="" data-original-title="如在微信下，不会直接跳转，会提示 请在浏览器打开"><i class="ace-icon fa fa-exclamation-triangle red bigger-70"></i></span> </span> -->{else /}<span style="color: #ff9800">普通 {/if}</td>
+                <td class="center">{if condition="$val.url eq ''"}未使用{else /}{$val.url}{/if}</td>
+                <td class="center">{$val.addtime}</td>
+
+                <td class="center">{if condition="$val.status eq 1"}<span style="color: green">正常
+
+                </span>
+                <span data-rel="tooltip" title="" data-original-title="最后检查:{$val.bad_time}"><i class="ace-icon fa fa-exclamation-triangle green bigger-100"></i></span>{else /}<span style="color: red">被封</span>
+                <span data-rel="tooltip" title="" data-original-title="被封时间:{$val.bad_time}"><i class="ace-icon fa fa-exclamation-triangle red bigger-100"></i></span>{/if}  
+                    
+                </td>
+                <!-- <td class="center hidden-sm hidden-xs">{$val.bad_time}</td> -->
+                <td class="center"><a class="ace-icon fa fa-edit" href="{:url('index',['act' =>'edit','id'=>$val['id']])}">修改</a></td>
+            </tr>
+        {/volist}
+        </tbody>
+    </table>
+    </form>
+</div>
+<div class="row">
+    <input id="submit" class="btn btn-info" type="button" value="删除">
+</div>
+<div class="row">
+{$list->render()|raw}
+</div>
+{/block}
+{block name="js_file"}
+<script src="__ADMIN__/js/bootbox.js"></script>
+<script src="__ADMIN__/js/toastr.min.js"></script>
+<script src="__ADMIN__/js/clipboard.min.js"></script>
+{/block}
+
+{block name="javascript"}
+<script type="text/javascript">
+$(function(){
+    $('[data-rel=tooltip]').tooltip();
+    $('[data-rel=popover]').popover({html:true});
+
+    $(".check-all").click(function(){
+        $(".ids").prop("checked", this.checked);
+    });
+    $(".ids").click(function(){
+        var option = $(".ids");
+        option.each(function(i){
+            if(!this.checked){
+                $(".check-all").prop("checked", false);
+                return false;
+            }else{
+                $(".check-all").prop("checked", true);
+            }
+        });
+    });
+    $("#submit").click(function(){
+        bootbox.confirm({
+            title: "系统提示",
+            message: "确定要删除所选记录？",
+            callback:function(result){
+                if(result){
+                    $("#form").submit();
+                }
+            },
+            buttons: {
+                "cancel" : {"label" : "取消"},
+                "confirm" : {
+                        "label" : "确定",
+                        "className" : "btn-danger"
+                    }
+            }
+        });
+    });
+});
+var clipboard = new Clipboard('.copy');
+    clipboard.on('success', function (e) {
+        toastr.success('复制成功');
+    });
+</script>
+{/block}

@@ -1,0 +1,81 @@
+{extend name="common:base" /}
+{block name="content"}
+<div class="row">
+<form class="form-horizontal" action="{:url('index',['act' => 'save'])}" method="post">
+<input type="hidden" name="id" value="{$dwz.id ?? 0}">
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="remarks"> 备注 </label>
+    <div class="col-sm-9">
+        <input type="text" name="remarks"  placeholder="例如：0612未使用" id="remarks" class="col-xs-10 col-sm-5" value="{$dwz.remarks ?? ''}" required="required">
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+        </span>
+    </div>
+</div>
+
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="domain"> 短域名 </label>
+    <div class="col-sm-9">
+        <input readonly type="text" name="domain"  id="domain" class="col-xs-10 col-sm-5" value="{$dwz.domain ?? ''}" required="required">
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+        </span>
+    </div>
+</div>
+
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="url"> 长链接 </label>
+    <div class="col-sm-9">
+        <input type="text" name="url"  placeholder="例如：https://baidu.com?code=xxxx" id="url" class="col-xs-10 col-sm-5" value="{$dwz.url ?? ''}" required="required">
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+        </span>
+    </div>
+</div>
+
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="tj_code"> 51统计ID </label>
+    <div class="col-sm-9">
+        <input type="text" name="tj_code"  placeholder="例如：JLPUCLKCueiLh6I2" id="tj_code" class="col-xs-10 col-sm-5" value="{$dwz.tj_code ?? ''}" >
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+        </span>
+    </div>
+</div>
+
+
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="type"> 防红模式 </label>
+    <div class="control-label col-sm-1">
+        <label>
+            <input name="type" id="type" {notempty name="dwz"}{if condition="$dwz.type eq 1"}checked="checked"{/if}{else /}checked="checked"{/notempty} value="1" class="ace ace-switch ace-switch-2" type="checkbox" />
+            <span class="lbl"></span>
+        </label>
+        
+    </div>
+    <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+    </span>
+</div>
+
+<div class="space-4"></div>
+<div class="col-md-offset-2 col-md-9">
+    <button id="submit" class="btn btn-info" type="submit">
+        <i class="icon-ok bigger-110"></i>
+        提交
+    </button>
+
+    &nbsp; &nbsp; &nbsp;
+    <!-- <button class="btn" type="reset">
+        <i class="icon-undo bigger-110"></i>
+        重置
+    </button> -->
+</div>
+</form>
+</div>
+{/block}

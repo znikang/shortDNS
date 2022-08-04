@@ -1,0 +1,91 @@
+{extend name="common:base" /}
+{block name="content"}
+<div class="row">
+<form class="form-horizontal" action="{:url('index',['act' => 'addurl'])}" method="post" id="messageForm" onsubmit="goSubmit(this)">
+<input type="hidden" name="id" value="{$banner.id ?? 0}">
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="remarks"> 备注 </label>
+    <div class="col-sm-9">
+        <input type="text" name="remarks"  placeholder="例如：0612新域名" id="remarks" class="col-xs-10 col-sm-5" value="{$banner.remarks ?? ''}" required="required">
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+        </span>
+    </div>
+</div>
+
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="host_record"> 主机记录 </label>
+    <div class="col-sm-9">
+        <input type="text" name="host_record"  placeholder="例如： @" id="host_record" class="col-xs-10 col-sm-5" value="{$banner.host_record ?? '@'}" required="required">
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle">域名前缀</span>
+        </span>
+    </div>
+</div>
+
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="ip"> 记录值 </label>
+    <div class="col-sm-9">
+        <input type="text" name="ip"  placeholder="例如：127.0.0.1" id="ip" class="col-xs-10 col-sm-5" value="{$banner.ip ?? '154.83.12.135'}" required="required">
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle">解析IP</span>
+        </span>
+    </div>
+</div>
+
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="domain"> 域名 </label>
+    <div class="col-sm-9">
+        <textarea class="ace_text-input col-xs-10 col-sm-5" id="domain" name="domain" placeholder="输入格式如：&#13;&#10;a001.com&#13;&#10;a001.com&#13;&#10;每个域名换一行" data-val="true" style="height: 200px" data-val-required="请输入正确的链接"></textarea>
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+        </span>
+    </div>
+</div>
+
+
+
+
+
+<!-- <div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="type"> 防红 </label>
+    <div class="control-label col-sm-1">
+        <label>
+            <input name="type" id="type" {notempty name="banner"}{if condition="$banner.type eq 1"}checked="checked"{/if}{else /}checked="checked"{/notempty} value="1" class="ace ace-switch ace-switch-2" type="checkbox" />
+            <span class="lbl"></span>
+        </label>
+    </div>
+    <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+    </span>
+</div> -->
+
+<div class="space-4"></div>
+<div class="col-md-offset-2 col-md-9">
+    <button id="submit" class="btn btn-info" type="submit">
+        <i class="icon-ok bigger-110"></i>
+        提交
+    </button>
+
+    &nbsp; &nbsp; &nbsp;
+    <!-- <button class="btn" type="reset">
+        <i class="icon-undo bigger-110"></i>
+        重置
+    </button> -->
+</div>
+</form>
+</div>
+{/block}
+{block name="javascript"}
+<script type="text/javascript">
+   function goSubmit(){
+        $("#submit").attr("disabled","true"); //设置变灰按钮  
+        $("#submit").html('<i class="fa fa-spinner fa-spin"></i> 请不要关闭当前页，域名解析中，请等待2-5分钟');
+    }
+</script>
+{/block}

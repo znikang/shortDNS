@@ -1,0 +1,70 @@
+{extend name="common:base" /}
+{block name="content"}
+<div class="col-sm-8 widget-container-col ui-sortable" id="widget-container-col-10"
+style="min-height: 108px;">
+    <div class="widget-box ui-sortable-handle" id="widget-box-10" style="opacity: 1;">
+        <div class="widget-header widget-header-small">
+            <h5 class="widget-title smaller">
+                参数配置
+            </h5>
+            <div class="widget-toolbar no-border">
+                <ul class="nav nav-tabs" id="myTab">
+                   <!--  <li class="active">
+                        <a data-toggle="tab" href="#home" aria-expanded="true">
+                            配置
+                        </a>
+                    </li> -->
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main padding-6">
+                <div class="tab-content">
+                    <div id="home" class="tab-pane active">
+                        <div class="row">
+                        <form class="form-horizontal" action="{notempty name="info"}{:url('apikey',['act'=>'update','id'=>0])}{else /}{:url('apikey',['act'=>'update','id'=>0])}{/notempty}" method="post">
+                        
+                       
+                       
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right"> GoDaddy Api Key </label>
+                            <div class="col-sm-9">
+                                <input type="text" id="apikey" class="col-xs-8 col-sm-8"  name="apikey" value="{$apikey}">
+                                <span class="help-inline col-xs-2 col-sm-2">
+                                    <span class="middle"><a href="https://developer.godaddy.com/keys">查看密钥</a></span>
+                                </span>
+                            </div>
+
+                            
+                        </div>
+
+                        
+                       
+                      
+                        <div class="space-4"></div>
+                        <div class="col-md-offset-2 col-md-9">
+                            <button id="submit" class="btn btn-info" type="submit">
+                                <i class="icon-ok bigger-110"></i>
+                                保存配置
+                            </button>
+
+                            <!-- &nbsp; &nbsp; &nbsp;
+                            <button class="btn" type="reset">
+                                <i class="icon-undo bigger-110"></i>
+                                重置
+                            </button> -->
+                        </div>
+                        </form>
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/block}

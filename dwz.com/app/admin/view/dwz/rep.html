@@ -1,0 +1,45 @@
+{extend name="common:base" /}
+{block name="content"}
+<div class="row">
+<form class="form-horizontal" action="{:url('index',['act' => 'rep'])}" method="post">
+<input type="hidden" name="id" value="{$banner.id ?? 0}">
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="old_url"> 原长链接 </label>
+    <div class="col-sm-9">
+        <input type="text" name="old_url"  placeholder="例如：http://baidu.com?code=xxx" id="old_url" class="col-xs-10 col-sm-5" value="{$banner.old_url ?? ''}" required="required">
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+        </span>
+    </div>
+</div>
+
+
+<div class="space-4"></div>
+<div class="form-group">
+    <label class="col-sm-1 control-label no-padding-right" for="new_url"> 替换后链接 </label>
+    <div class="col-sm-9">
+        <input type="text" name="new_url"  placeholder="例如：http://qq.com?code=xxx" id="new_url" class="col-xs-10 col-sm-5" value="{$banner.new_url ?? ''}" required="required">
+        <span class="help-inline col-xs-12 col-sm-7">
+            <span class="middle"></span>
+        </span>
+    </div>
+</div>
+
+
+<div class="space-4"></div>
+<div class="col-md-offset-2 col-md-9">
+    <button id="submit" class="btn btn-info" type="submit">
+        <i class="icon-ok bigger-110"></i>
+        提交
+    </button>
+
+    &nbsp; &nbsp; &nbsp;
+    <!-- <button class="btn" type="reset">
+        <i class="icon-undo bigger-110"></i>
+        重置
+    </button> -->
+</div>
+</form>
+</div>
+{/block}
